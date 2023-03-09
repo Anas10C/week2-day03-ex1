@@ -1,10 +1,12 @@
 package org.example;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class HelloWorldDecoupled {
     public static void main(String... args) {
-        MessageRenderer mr = MessageSupportFactory.getInstance().getMessageRenderer();
-        MessageProvider mp = MessageSupportFactory.getInstance().getMessageProvider();
-        mr.setMessageProvider(mp);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("/app-context.xml");
+        MessageRenderer mr = ctx.getBean("renderer", MessageRenderer.class);
         mr.render();
     }
 }
